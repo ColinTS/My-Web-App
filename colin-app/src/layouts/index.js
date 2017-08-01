@@ -8,15 +8,18 @@ import './index.css'
 const Header = () => (
   <div
     style={{
-      background: 'rebeccapurple',
+      background: 'grey',
       marginBottom: '1.45rem',
     }}
   >
-    <div
+    <div className='header'
       style={{
         margin: '0 auto',
-        maxWidth: 960,
+        maxWidth: 1160,
         padding: '1.45rem 1.0875rem',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
       }}
     >
       <h1 style={{ margin: 0 }}>
@@ -30,6 +33,17 @@ const Header = () => (
           Gatsby
             </Link>
       </h1>
+      <h2 style={{ margin: 0 }}>  
+        <Link
+          to="/about"
+          style={{
+            color: 'white',
+            textDecoration: 'none',
+          }}
+        >
+          About
+            </Link>
+      </h2>
     </div>
   </div>
 )
