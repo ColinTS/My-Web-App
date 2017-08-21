@@ -1,18 +1,29 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Link from 'gatsby-link'
 import Helmet from 'react-helmet'
+import ScrollEvent from 'react-onscroll';
 
 import './index.css'
 
-const Header = () => (
-  <div
-    style={{
+const headerStyle = {
       background: 'grey',
       marginBottom: '1.45rem',
-    }}
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '100%',
+      zIndex: '99'
+}
+
+
+
+const Header = () => (
+
+  <div className='header'
+    style={headerStyle}
   >
-    <div className='header'
+    <div
       style={{
         margin: '0 auto',
         maxWidth: 1160,
@@ -24,14 +35,14 @@ const Header = () => (
     >
       <h1 style={{ margin: 0 }}>
         <Link
-          to="/"
-          style={{
-            color: 'white',
-            textDecoration: 'none',
-          }}
-        >
-          Gatsby
-            </Link>
+            to="/"
+            style={{
+              color: 'white',
+              textDecoration: 'none',
+            }}
+          >
+            Gatsby
+        </Link>
       </h1>
       <h2 style={{ margin: 0 }}>  
         <Link
@@ -42,16 +53,31 @@ const Header = () => (
           }}
         >
           About
-            </Link>
+        </Link>
       </h2>
     </div>
   </div>
 )
 
-const TemplateWrapper = ({
-  children
-}) => (
-    <div>
+class TemplateWrapper extends Component {
+  constructor(props) {
+        super(props);
+ 
+        this.handleScrollCallback = this.handleScrollCallback.bind(this);
+    }
+ 
+    handleScrollCallback() {
+        console.log("A scroll event occurred!");
+    }
+
+  modHeader = () => {
+    headerStyle.background = 'white'
+    console.log('scroll')
+  }
+
+  render(){
+    return(
+      <div >
       <Helmet
         title="Gatsby Default Starter"
         meta={[
@@ -60,7 +86,7 @@ const TemplateWrapper = ({
         ]}
       />
       <Header />
-      <div
+      <div 
         style={{
           margin: '0 auto',
           maxWidth: 960,
@@ -68,10 +94,15 @@ const TemplateWrapper = ({
           paddingTop: 0,
         }}
       >
-        {children()}
+        {this.props.children()}
+        <ScrollEvent handleScrollCallback={this.handleScrollCallback} />
+        
       </div>
     </div>
-  )
+    )
+  }
+}
+  
 
 TemplateWrapper.propTypes = {
   children: PropTypes.func,
