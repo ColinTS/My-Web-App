@@ -6,22 +6,20 @@ import ScrollEvent from 'react-onscroll';
 
 import './index.css'
 
-const headerStyle = {
-      background: 'grey',
+class Header extends Component {
+  
+  render(){
+    return(
+      <div className='header'
+    style={{
+      background: `${this.props.headerColor}`,
       marginBottom: '1.45rem',
       position: 'fixed',
       top: 0,
       left: 0,
       width: '100%',
       zIndex: '99'
-}
-
-
-
-const Header = () => (
-
-  <div className='header'
-    style={headerStyle}
+    }}
   >
     <div
       style={{
@@ -57,23 +55,26 @@ const Header = () => (
       </h2>
     </div>
   </div>
-)
+    )
+  }
+}
 
 class TemplateWrapper extends Component {
   constructor(props) {
-        super(props);
- 
-        this.handleScrollCallback = this.handleScrollCallback.bind(this);
-    }
- 
-    handleScrollCallback() {
-        console.log("A scroll event occurred!");
+    super(props);
+    this.state = {
+      headerColor: 'grey'
     }
 
-  modHeader = () => {
-    headerStyle.background = 'white'
-    console.log('scroll')
+    this.handleScrollCallback = this.handleScrollCallback.bind(this);
   }
+ 
+    handleScrollCallback() {
+        this.setState({
+          headerColor: 'white'
+        })
+        console.log("A scroll event occurred!");
+    }
 
   render(){
     return(
@@ -85,7 +86,9 @@ class TemplateWrapper extends Component {
           { name: 'keywords', content: 'sample, something' },
         ]}
       />
-      <Header />
+      <Header 
+        headerColor={this.state.headerColor}
+      />
       <div 
         style={{
           margin: '0 auto',
